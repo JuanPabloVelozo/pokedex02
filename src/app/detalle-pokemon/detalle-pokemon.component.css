@@ -1,0 +1,60 @@
+/* Estilo para el contenedor de detalles del Pokémon */
+div[ngIf="selectedPokemon"] {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el título "Detalles del Pokémon" */
+h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+/* Estilo para las etiquetas de detalles */
+p {
+  font-size: 16px;
+  color: #555; 
+  margin: 5px 0;
+}
+
+  /* Estilo para las etiquetas de detalles en negrita*/
+  p strong {
+    font-weight: bold;
+    color: #333;
+  }
+
+/* Estilo para la lista de tipos de Pokémon */
+h3 {
+  font-size: 20px;
+  margin-top: 15px;
+  color: #333;
+}
+
+/* Estilo para la lista de tipos de Pokémon */
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Estilo para los elementos de lista en la lista de tipos de Pokémon */
+li {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Estilo para las estadísticas y habilidades */
+h3 + ul {
+  margin-top: 5px;
+}
+
+  /* Estilo para las estadísticas y habilidades*/
+  h3 + ul li strong {
+    font-weight: bold;
+    color: #333;
+  }

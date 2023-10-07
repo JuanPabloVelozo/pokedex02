@@ -1,0 +1,37 @@
+/* Estilo para el contenedor principal */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+/* Estilo para la columna izquierda */
+.left-column {
+  flex: 1;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+/* Estilo para la columna derecha */
+.right-column {
+  flex: 1;
+  padding: 10px;
+}
+
+/* Estilo para el título Pokedex */
+h1 {
+  font-size: 28px;
+  color: #333;
+  text-align: center;
+}
+
+/* Estilo para la lista de Pokémon en la columna izquierda */
+app-lista-pokemon {
+  
+}
+
+/* Estilo para los detalles del Pokémon en la columna derecha */
+.pokemon-details {
+ 
+}

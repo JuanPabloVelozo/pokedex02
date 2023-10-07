@@ -1,0 +1,41 @@
+/* Estilo para la lista de Pokémon */
+
+.scrollable-container {
+  max-height: 485px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+  li:hover {
+    background-color: #ddd;
+  }
+
+  /* Estilo para el texto del nombre del Pokémon */
+  li span {
+    font-weight: bold;
+    color: #333;
+  }
+
+/* Estilo para el contenedor del componente de lista */
+.container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

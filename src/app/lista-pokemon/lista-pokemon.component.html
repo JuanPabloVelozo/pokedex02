@@ -1,0 +1,8 @@
+<div class="scrollable-container">
+  <h2>Lista de Pokémon</h2>
+  <ul>
+    <li *ngFor="let pokemon of pokemonList" (click)="selectPokemon(pokemon)">
+      {{ pokemon.name }}
+    </li>
+  </ul>
+</div>
