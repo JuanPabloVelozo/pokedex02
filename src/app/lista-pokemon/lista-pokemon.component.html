@@ -1,8 +1,18 @@
+<div class="region-selection-container">
+  <label class="region-label">Selecciona una región:</label>
+  <select [(ngModel)]="selectedRegion" (change)="changeRegion(selectedRegion)">
+    <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+  </select>
+</div>
+
+<input type="text" placeholder="Buscar Pokémon" [(ngModel)]="searchTerm" (input)="searchPokemon()" />
+<br>
 <div class="scrollable-container">
-  <h2>Lista de Pokémon</h2>
-  <ul>
+  <ul class="pokemon-list-container">
     <li *ngFor="let pokemon of pokemonList" (click)="selectPokemon(pokemon)">
-      {{ pokemon.name }}
+      <img class="pokeball" src="assets/pokeball/nullball.png" alt="Pokeball" />
+      <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
+      {{ pokemon.name}}
     </li>
   </ul>
 </div>

@@ -1,41 +1,95 @@
-/* Estilo para la lista de Pokémon */
-
-.scrollable-container {
-  max-height: 485px;
-  overflow-y: auto;
-  margin-bottom: 20px;
+/* Estilo para la imagen del Pokémon */
+.pokemon-list-container li img {
+  max-width: 50px;
+  max-height: 50px;
 }
 
-ul {
+/* Estilo para el contenedor principal */
+.scrollable-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Estilo para la lista de Pokémon */
+.pokemon-list-container {
+ 
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-li {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  margin: 5px;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  /* Estilo para cada entrada de la Pokédex */
+  .pokemon-list-container li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s;
+  }
+
+    /* Estilo para el número de Pokédex */
+    .pokemon-list-container li span.pokemon-number {
+      font-size: 14px;
+      font-weight: bold;
+      margin-right: 10px;
+      color: #555;
+    }
+
+    /* Estilo para el nombre del Pokémon */
+    .pokemon-list-container li span.pokemon-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Estilo cuando se pasa el ratón sobre una entrada */
+    .pokemon-list-container li:hover {
+      background-color: #f5f5f5;
+    }
+
+
+
+
+/* Estilo para el contenedor de selección de región */
+.region-selection-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-  li:hover {
-    background-color: #ddd;
-  }
+/* Estilo para el contenedor de selección de región */
+.region-selection-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-  /* Estilo para el texto del nombre del Pokémon */
-  li span {
-    font-weight: bold;
-    color: #333;
-  }
+/* Estilo para el texto "Selecciona una región:" */
+.region-label {
+  font-size: 18px;
+  margin-right: 10px;
+}
 
-/* Estilo para el contenedor del componente de lista */
-.container {
+/* Estilo para el campo de selección de región */
+select {
+  flex: 1;
+  padding: 10px;
+  font-size: 18px;
   border: 1px solid #ccc;
-  padding: 20px;
   border-radius: 5px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Estilo para el campo de búsqueda de Pokémon */
+input[type="text"] {
+  width: 98%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }

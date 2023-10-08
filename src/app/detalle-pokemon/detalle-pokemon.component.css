@@ -1,60 +1,258 @@
-/* Estilo para el contenedor de detalles del Pokémon */
-div[ngIf="selectedPokemon"] {
-  background-color: #f0f0f0;
+/* Estilo para el contenedor principal */
+.scrollable-container {
+  max-height: 500px;
+  overflow-y: auto;
   border: 1px solid #ccc;
-  margin-top: 20px;
-  padding: 10px;
+  background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
-/* Estilo para el título "Detalles del Pokémon" */
-h2 {
-  font-size: 24px;
-  color: #333;
+
+/* Styles for container */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
 }
 
-/* Estilo para las etiquetas de detalles */
-p {
-  font-size: 16px;
-  color: #555; 
-  margin: 5px 0;
+/* Styles for .pokemon-details */
+.pokemon-details {
+  flex: 1;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-  /* Estilo para las etiquetas de detalles en negrita*/
-  p strong {
-    font-weight: bold;
-    color: #333;
+  .pokemon-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
   }
 
-/* Estilo para la lista de tipos de Pokémon */
-h3 {
-  font-size: 20px;
-  margin-top: 15px;
-  color: #333;
+
+
+.pokemon-images img {
+  width: 150px;
+  height: auto;
 }
 
-/* Estilo para la lista de tipos de Pokémon */
-ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-/* Estilo para los elementos de lista en la lista de tipos de Pokémon */
-li {
-  font-size: 16px;
-  margin: 5px 0;
-  color: #555;
-}
-
-/* Estilo para las estadísticas y habilidades */
-h3 + ul {
-  margin-top: 5px;
-}
-
-  /* Estilo para las estadísticas y habilidades*/
-  h3 + ul li strong {
-    font-weight: bold;
-    color: #333;
+  .pokemon-images button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
   }
+
+/* Styles for .data-section */
+.data-section h3 {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.data-section p {
+  font-size: 16px;
+}
+
+/* Styles for .abilities */
+.abilities {
+  flex: 1;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+  .abilities h3 {
+    font-size: 18px;
+  }
+
+  .abilities ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .abilities li {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+/* Styles for .types */
+.types, .weaknesses {
+  flex: 1;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-right: 20px;
+}
+
+  .types h3{
+    font-size: 18px;
+  }
+
+  .types ul{
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .types li {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+
+/* Styles for .stats-table */
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+  .stats-table th, .stats-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .stats-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+/* Styles for .description */
+.description {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+
+
+/* Estilos para los tipos de Pokémon */
+.type-normal {
+  background-color: #A8A878;
+  color: #fff;
+}
+
+.type-fire {
+  background-color: #F08030;
+  color: #fff;
+}
+
+.type-water {
+  background-color: #6890F0;
+  color: #fff;
+}
+
+.type-grass {
+  background-color: #78C850;
+  color: #fff;
+}
+
+.type-electric {
+  background-color: #F8D030;
+  color: #000;
+}
+
+.type-ice {
+  background-color: #98D8D8;
+  color: #fff;
+}
+
+.type-fighting {
+  background-color: #C03028;
+  color: #fff;
+}
+
+.type-poison {
+  background-color: #A040A0;
+  color: #fff;
+}
+
+.type-ground {
+  background-color: #E0C068;
+  color: #fff;
+}
+
+.type-flying {
+  background-color: #A890F0;
+  color: #fff;
+}
+
+.type-psychic {
+  background-color: #F85888;
+  color: #fff;
+}
+
+.type-bug {
+  background-color: #A8B820;
+  color: #fff;
+}
+
+.type-rock {
+  background-color: #B8A038;
+  color: #fff;
+}
+
+.type-ghost {
+  background-color: #705898;
+  color: #fff;
+}
+
+.type-dark {
+  background-color: #705848;
+  color: #fff;
+}
+
+.type-steel {
+  background-color: #B8B8D0;
+  color: #000;
+}
+
+.type-fairy {
+  background-color: #EE99AC;
+  color: #000;
+}
+
+/* Estilos para los tipos de Pokémon */
+.type-normal,
+.type-fire,
+.type-water,
+.type-grass,
+.type-electric,
+.type-ice,
+.type-fighting,
+.type-poison,
+.type-ground,
+.type-flying,
+.type-psychic,
+.type-bug,
+.type-rock,
+.type-ghost,
+.type-dark,
+.type-steel,
+.type-fairy,
+.type-dragon {
+  width: 80px; /* Ancho fijo para todos los tipos */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 5px;
+  margin-right: 10px;
+  display: inline-block;
+  font-family: 'Arial', sans-serif;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+
+
+.type-dragon {
+  background-color: #7038F8; /* Color de fondo */
+  color: #FFF; /* Color del texto */
+}
+

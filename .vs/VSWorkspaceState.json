@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\detalle-pokemon",
+    "\\src\\app\\lista-pokemon"
+  ],
+  "SelectedNode": "\\src\\app\\detalle-pokemon\\detalle-pokemon.component.ts",
+  "PreviewInSolutionExplorer": false
+}

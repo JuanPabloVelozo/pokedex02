@@ -1,37 +1,47 @@
-/* Estilo para el contenedor principal */
+/* Estilo general del contenedor */
 .container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin: 20px;
+  padding: 20px;
+  background-color: #333;
+  border: 2px solid #666;
+  border-radius: 10px;
 }
 
-/* Estilo para la columna izquierda */
+/* Estilo de la columna izquierda (Lista de Pokémon) */
 .left-column {
-  flex: 1;
-  padding: 10px;
-  background-color: #f0f0f0;
+  flex: 1; 
+  max-width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-right: 10px;
 }
 
-/* Estilo para la columna derecha */
+/* Estilo de la columna derecha (Detalles del Pokémon) */
 .right-column {
-  flex: 1;
-  padding: 10px;
+  flex: 2;
+  max-width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo para el título Pokedex */
-h1 {
-  font-size: 28px;
-  color: #333;
-  text-align: center;
-}
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+    /* Quita display: flex; para que no utilice flexbox en estado responsive */
+    display: block;
+  }
 
-/* Estilo para la lista de Pokémon en la columna izquierda */
-app-lista-pokemon {
-  
-}
-
-/* Estilo para los detalles del Pokémon en la columna derecha */
-.pokemon-details {
- 
+  .left-column,
+  .right-column {
+    flex: 1; 
+    max-width: 100%;
+    margin-right: 0;
+  }
 }

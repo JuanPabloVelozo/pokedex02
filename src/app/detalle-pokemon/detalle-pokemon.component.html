@@ -1,30 +1,71 @@
-<div *ngIf="selectedPokemon">
-  <h2>Detalles del Pokémon</h2>
-  <p><strong>ID:</strong> {{ selectedPokemon.id }}</p>
-  <p><strong>Nombre:</strong> {{ selectedPokemon.name }}</p>
-  <p><strong>Altura:</strong> {{ selectedPokemon.height }} decímetros</p>
-  <p><strong>Peso:</strong> {{ selectedPokemon.weight }} hectogramos</p>
-  <p><strong>Experiencia base:</strong> {{ selectedPokemon.base_experience }}</p>
+<div class="scrollable-container">
+  <div class="container">
+    <div class="pokemon-details">
+      <h2>{{ selectedPokemon.name }}</h2>
+      <div class="pokemon-images">
+        <div>
+          <img [src]="selectedPokemon.sprites[getValidSpriteKeys()[currentIndex]]" alt="{{ getValidSpriteKeys()[currentIndex] }}" />
+        </div>
+        <button (click)="prevImage()" [disabled]="currentIndex === 0">Anterior</button>
+        <button (click)="nextImage()" [disabled]="currentIndex === getValidSpriteKeys().length - 1">Siguiente</button>
+      </div>
 
-  <h3>Tipo(s):</h3>
-  <ul>
-    <li *ngFor="let type of selectedPokemon.types">
-      {{ type.type.name }}
-    </li>
-  </ul>
+    </div>
+    <div class="abilities">
+      <h3>Datos:</h3>
+      <p>Numero: {{ selectedPokemon.id }}</p>
+      <p>Peso: {{ selectedPokemon.weight }}</p>
+      <p>Altura: {{ selectedPokemon.height }}</p>
+      <p>Sexo: {{ genderSymbol }}</p>
+    </div>
+    <div class="abilities">
+      <h3>Habilidades:</h3>
+      <ul>
+        <li *ngFor="let ability of selectedPokemon.abilities">
+          {{ ability.ability.name }}
+        </li>
+      </ul>
+      <h3>Descripción:</h3>
+      <p>{{ selectedPokemon.description }}</p>
+    </div>
 
-  <h3>Estadísticas:</h3>
-  <ul>
-    <li *ngFor="let stat of selectedPokemon.stats">
-      <strong>{{ stat.stat.name }}:</strong> {{ stat.base_stat }}
-    </li>
-  </ul>
-
-  <h3>Habilidades:</h3>
-  <ul>
-    <li *ngFor="let ability of selectedPokemon.abilities">
-      {{ ability.ability.name }}
-    </li>
-  </ul>
-
+  </div>
+  <div class="container">
+    <div class="types">
+      <h3>Tipo(s):</h3>
+      <ul>
+        <li *ngFor="let type of selectedPokemon.types" [ngClass]="'type-' + type.type.name">
+          {{ type.type.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="types">
+      <h3>Debilidades:</h3>
+      <ul>
+        <li *ngFor="let weakness of selectedPokemon.weaknesses" [ngClass]="'type-' + weakness.toLowerCase()">
+          {{ weakness }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="abilities">
+      <h3>Estadísticas:</h3>
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Estadística</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stat of selectedPokemon.stats">
+            <td>{{ stat.stat.name }}</td>
+            <td>{{ stat.base_stat }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+
