@@ -66,6 +66,16 @@
         </tbody>
       </table>
     </div>
+    <div class="abilities">
+      <h3>Movimientos:</h3>
+      <div class="container2">
+        <ul>
+          <li *ngFor="let move of selectedPokemon.moves">
+            {{ move.name }} - {{ move.category }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -116,4 +116,16 @@ export class DetallePokemonComponent {
       this.currentIndex++;
     }
   }
+
+  getCategory(move: any): string {
+    if (move.category === 'physical') {
+      return 'Ataque Físico';
+    } else if (move.category === 'special') {
+      return 'Ataque Especial';
+    } else if (move.category === 'status') {
+      return 'Movimiento de Estado';
+    } else {
+      return 'Desconocido';
+    }
+  }
 }

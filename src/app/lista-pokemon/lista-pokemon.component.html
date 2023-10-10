@@ -16,3 +16,20 @@
     </li>
   </ul>
 </div>
+
+<div class="scrollable2">
+  <table>
+    <thead>
+      <tr>
+        <th>Letra</th>
+        <th>Número de Pokémon</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of letterCounts | keyvalue">
+        <td>{{ entry.key }}</td>
+        <td>{{ entry.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
