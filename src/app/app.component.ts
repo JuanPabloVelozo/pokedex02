@@ -8,6 +8,7 @@ import { Component, SimpleChanges } from '@angular/core';
 export class AppComponent {
 
   selectedPokemon: any;
+  loading: boolean = false;
 
   onPokemonSelected(pokemon: any) {
     this.selectedPokemon = pokemon;

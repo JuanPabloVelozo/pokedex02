@@ -1,4 +1,6 @@
-<div class="scrollable-container">
+
+
+<div class="scrollable-container" *ngIf="selectedPokemon">
   <div class="container">
     <div class="pokemon-details">
       <h2>{{ selectedPokemon.name }}</h2>
@@ -19,14 +21,21 @@
       <p>Sexo: {{ genderSymbol }}</p>
     </div>
     <div class="abilities">
-      <h3>Habilidades:</h3>
+      <h3>Habilidades Normales:</h3>
       <ul>
-        <li *ngFor="let ability of selectedPokemon.abilities">
+        <li *ngFor="let ability of selectedPokemon.normalAbilities">
           {{ ability.ability.name }}
         </li>
       </ul>
-      <h3>Descripción:</h3>
-      <p>{{ selectedPokemon.description }}</p>
+
+      <h3>Habilidades Ocultas:</h3>
+      <ul>
+        <li *ngFor="let ability of selectedPokemon.hiddenAbilities">
+          {{ ability.ability.name }}
+        </li>
+        </ul>
+        <h3>Descripción:</h3>
+        <p>{{ selectedPokemon.description }}</p>
     </div>
 
   </div>
@@ -77,5 +86,42 @@
       </div>
     </div>
   </div>
-</div>
+  <div class="container">
+    <div class="abilities">
+      <h3 class="evolutions-title">Evolutions:</h3>
+      <ul class="evolutions-list">
+        <li *ngFor="let evolution of selectedPokemon.evolutions; let i = index">
+          <div class="evolution-item">
+            <ng-container *ngIf="evolution.evolutionDetails" class="arrow">
+              <div class="evolution-details">
+                <p *ngFor="let detail of evolution.evolutionDetails">
+                  <!-- Muestra los detalles de evolución no nulos -->
+                  <span>{{ detail.trigger.name }}:</span>
+                  <span>{{ detail.min_level }}</span>
+                  <span>{{ detail.item ? ' (Item: ' + detail.item.name + ')' : '' }}</span>
+                  <!-- Agrega más propiedades según sea necesario -->
+                </p>
+              </div>
+              <div class="pokemon-details">
+                <img [src]="selectedPokemon.evolutionSprites[i]" alt="Front Sprite" class="evolution-image">
+                <span class="evolution-name">{{ evolution.name }}</span>
+              </div>
+
+            </ng-container>
+          </div>
+        </li>
+      </ul>
+
+
+
+    </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
 

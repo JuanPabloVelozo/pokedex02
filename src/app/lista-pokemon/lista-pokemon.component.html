@@ -10,13 +10,16 @@
 <div class="scrollable-container">
   <ul class="pokemon-list-container">
     <li *ngFor="let pokemon of pokemonList" (click)="selectPokemon(pokemon)">
+      <div class="container">
+      <div class="pokemon-number">{{ pokemon.number }}</div>
       <img class="pokeball" src="assets/pokeball/nullball.png" alt="Pokeball" />
+        </div>
       <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
       {{ pokemon.name}}
     </li>
   </ul>
 </div>
-
+<h2>Tabla de resumen</h2>
 <div class="scrollable2">
   <table>
     <thead>

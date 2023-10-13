@@ -1,3 +1,4 @@
+
 /* Estilo para la imagen del Pokémon */
 .pokemon-list-container li img {
   max-width: 50px;
@@ -130,4 +131,23 @@ table {
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
+}
+
+
+.container {
+  position: relative;
+  text-align: center;
+}
+
+.pokemon-number {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif;
 }

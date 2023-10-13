@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-lista-pokemon',
@@ -35,6 +35,7 @@ export class ListaPokemonComponent implements OnInit {
           const firstLetter = pokemon.name.charAt(0).toUpperCase();
           this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
             .subscribe((pokemonData) => {
+              pokemon.number = pokemonData.id;
               pokemon.sprites = pokemonData.sprites;
             });
         });
@@ -54,76 +55,123 @@ export class ListaPokemonComponent implements OnInit {
       }
     });
   }
-  selectPokemon(pokemon: any) {
-    this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-      .subscribe((data) => {
-        if (data.sprites) {
-          const filteredSprites = Object.keys(data.sprites)
-            .filter((key) => !key.includes('back'))
-            .reduce((obj: any, key) => {
-              obj[key] = data.sprites[key];
-              return obj;
-            }, {});
-          data.sprites = filteredSprites;
-        }
+    //select pokemon
+  async selectPokemon(pokemon: any) {
+    try {
+      // Obtiene datos básicos del Pokémon desde la API
+      const pokemonData = await this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`).toPromise();
 
-        this.http.get<any>(data.species.url)
-          .subscribe((speciesData) => {
-            const esDescriptions = speciesData.flavor_text_entries.filter((entry: any) => entry.language.name === 'es');
-            const lastEsDescription = esDescriptions.slice(-1)[0];
+      // Filtra las habilidades ocultas y las habilidades normales
+      const hiddenAbilities = pokemonData.abilities.filter((ability: any) => ability.is_hidden);
+      const normalAbilities = pokemonData.abilities.filter((ability: any) => !ability.is_hidden);
 
-            if (lastEsDescription) {
-              data.description = lastEsDescription.flavor_text;
-            }
+      // Asigna las habilidades al objeto `pokemonData`
+      pokemonData.hiddenAbilities = hiddenAbilities;
+      pokemonData.normalAbilities = normalAbilities;
 
-            this.http.get<any>(`https://pokeapi.co/api/v2/type/${data.types[0].type.name}`)
-              .subscribe((typeData) => {
-                const weaknesses = typeData.damage_relations.double_damage_from.map((type: any) => type.name);
-                data.weaknesses = weaknesses;
 
-                this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-                  .subscribe((movesData) => {
-                    const moveUrls = movesData.moves.map((move: any) => move.move.url);
+      // Obtiene información sobre las evoluciones del Pokémon
+      const speciesData = await this.http.get<any>(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`).toPromise();
 
-                    const moveDetailsPromises = moveUrls.map((moveUrl: string) => {
-                      return this.http.get<any>(moveUrl).toPromise();
-                    });
+      if (speciesData.evolution_chain) {
+          // Obtiene la URL de la cadena de evolución
+          const evolutionChainUrl = speciesData.evolution_chain.url;
+          const evolutionChainData = await this.http.get<any>(evolutionChainUrl).toPromise();
 
-                    Promise.all(moveDetailsPromises)
-                      .then((moveDetails) => {
-                        const formattedMoves = moveDetails.map((moveDetail: any) => {
-                          return {
-                            name: moveDetail.name,
-                            power: moveDetail.power,
-                            type: moveDetail.type.name,
-                          };
-                        });
+          // Función recursiva para obtener todas las evoluciones
+          const evolutions: any[] = [];
 
-                        const moveCategoryPromises = formattedMoves.map((move: any) => {
-                          return this.http.get<any>(`https://pokeapi.co/api/v2/move/${move.name}`).toPromise();
-                        });
+          function getEvolutions(chain: any) {
+            const evolutionInfo = {
+              name: chain.species.name,
+              evolutionDetails: chain.evolution_details
+            };
+            evolutions.push(evolutionInfo);
 
-                        Promise.all(moveCategoryPromises)
-                          .then((categoryData) => {
-                            formattedMoves.forEach((move: any, index: number) => {
-                              move.category = categoryData[index].damage_class.name;
-                            });
-
-                            data.moves = formattedMoves;
-                            this.selectedPokemon = data;
-                            this.pokemonSelected.emit(this.selectedPokemon);
-                          })
-                          .catch((error) => {
-                            console.error('Error al obtener la categoría de los movimientos:', error);
-                          });
-                      })
-                      .catch((error) => {
-                        console.error('Error al obtener detalles de los movimientos:', error);
-                      });
-                  });
+            if (chain.evolves_to.length > 0) {
+              // Handle branched evolutions
+              chain.evolves_to.forEach((branch: any) => {
+                getEvolutions(branch);
               });
+            }
+          }
+
+          getEvolutions(evolutionChainData.chain);
+
+          // Obtén el primer sprite frontal de cada evolución y agrégalo a un arreglo de sprites de evoluciones
+          const evolutionSpritesPromises = evolutions.map(async (evolutionInfo: any) => {
+            const evolutionData = await this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${evolutionInfo.name}`).toPromise();
+            return evolutionData.sprites.front_default;
           });
+
+          // Agrega la lista de evoluciones al objeto `pokemonData`
+          const evolutionSprites = await Promise.all(evolutionSpritesPromises);
+          pokemonData.evolutionSprites = evolutionSprites;
+          pokemonData.evolutions = evolutions;
+      }
+
+
+      // Filtra las imágenes del Pokémon para eliminar las versiones "back"
+      if (pokemonData.sprites) {
+        const filteredSprites = Object.keys(pokemonData.sprites)
+          .filter((key) => !key.includes('back'))
+          .reduce((obj: any, key) => {
+            obj[key] = pokemonData.sprites[key];
+            return obj;
+          }, {});
+        pokemonData.sprites = filteredSprites;
+      }
+
+      // Obtiene debilidades del Pokémon a partir de su tipo
+      const typeData = await this.http.get<any>(`https://pokeapi.co/api/v2/type/${pokemonData.types[0].type.name}`).toPromise();
+      const weaknesses = typeData.damage_relations.double_damage_from.map((type: any) => type.name);
+      pokemonData.weaknesses = weaknesses;
+
+      // Obtiene la descripción en español del Pokémon
+      const esDescriptions = speciesData.flavor_text_entries.filter((entry: any) => entry.language.name === 'es');
+      const lastEsDescription = esDescriptions.slice(-1)[0];
+
+      // Asigna la descripción en español al objeto `pokemonData`
+      if (lastEsDescription) {
+        pokemonData.description = lastEsDescription.flavor_text;
+      }
+
+      // Obtiene información detallada sobre los movimientos del Pokémon
+      const movesData = await this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`).toPromise();
+      const moveUrls = movesData.moves.map((move: any) => move.move.url);
+
+      // Realiza llamadas para obtener detalles de los movimientos
+      const moveDetailsPromises = moveUrls.map((moveUrl: string) => this.http.get<any>(moveUrl).toPromise());
+      const moveDetails = await Promise.all(moveDetailsPromises);
+
+      // Formatea la información de los movimientos
+      const formattedMoves = moveDetails.map((moveDetail: any) => {
+        return {
+          name: moveDetail.name,
+          power: moveDetail.power,
+          type: moveDetail.type.name,
+        };
       });
+
+      // Obtiene la categoría de daño de los movimientos
+      const moveCategoryPromises = formattedMoves.map((move: any) => this.http.get<any>(`https://pokeapi.co/api/v2/move/${move.name}`).toPromise());
+      const categoryData = await Promise.all(moveCategoryPromises);
+
+      // Asigna la categoría de daño a los movimientos
+      formattedMoves.forEach((move: any, index: number) => {
+        move.category = categoryData[index].damage_class.name;
+      });
+
+      // Asigna los movimientos formateados al objeto `pokemonData`
+      pokemonData.moves = formattedMoves;
+
+      // Asigna `pokemonData` a `pokemonSelected` y emite un evento `pokemonSelected`
+      this.selectedPokemon = pokemonData;
+      this.pokemonSelected.emit(this.selectedPokemon);
+
+    } catch (error) {
+      console.error('Error en la solicitud HTTP:', error);
+    }
   }
 
 
